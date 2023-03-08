@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('barang', function (Blueprint $table) {
             $table->id();
-            $table->String('nama_barang', 100);
-            $table->String('gambar_barang', 25);
+            $table->String('nama_barang');
+            $table->String('gambar_barang');
             $table->unsignedBigInteger('qty');
             $table->unsignedBigInteger('harga');
-            $table->char('barcode', 20);
+            $table->char('barcode');
             $table->timestamps();
             $table->softDeletes();
         });

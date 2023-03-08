@@ -18,14 +18,9 @@ class TransaksiR extends JsonResource
     public function toArray($request)
     {
         return [
-            'id_barang' => $this->id_barang,
-            'tanggal_jual' => $this->tanggal_jual,
-            'pembeli'    => $this->pembeli,
-            'nama_barang' => $this->nama_barang,
-            'qty' => $this->qty,
-            'harga_awal'    => $this->harga_awal,
-            'harga_jual' => $this->harga_jual,
-            'laba' => $this->laba
+            'success' => $this->status,
+            'message' => $this->message,
+            'data'    => $this->resource
         ];
     }
 }

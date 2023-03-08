@@ -7,12 +7,16 @@ use Illuminate\Http\Request;
 use App\Http\Resources\BarangR;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class BarangC extends Controller
 {
     public function index()
     {
-        $barang = BarangM::latest()->paginate(5);
+        $barang = BarangM::all();
+
         return new BarangR(true, 'List data barang', $barang);
     }
 
@@ -22,7 +26,7 @@ class BarangC extends Controller
             'gambar_barang' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'qty' => 'required',
             'harga' => 'required',
-            'barcode' => 'required',
+            'barcode' => 'required'
         ]);
 
         if ($validator->fails()){
@@ -34,7 +38,7 @@ class BarangC extends Controller
 
         $barang = BarangM::create([
             'nama_barang' => $request->nama_barang,
-            'gambar_barang' => $image->hashName(),
+            'gambar_barang' => $gambar_barang->hashName(),
             'qty' => $request->qty,
             'harga' => $request->harga,
             'barcode' => $request->barcode,
@@ -51,12 +55,13 @@ class BarangC extends Controller
             'nama_barang' => 'required',
             'qty' => 'required',
             'harga' => 'required',
-            'barcode' => 'required',
+            'barcode' => 'required'
         ]);
         if ($validator->fails()){
             return response()->json($validator->errors(), 422);
         }
         if($request ->hasfile('gambar_barang')){
+
             $gambar_barang = $request->file('gambar_barang');
             $gambar_barang->storeAs('public/barang', $gambar_barang->hashName());
 
@@ -64,7 +69,7 @@ class BarangC extends Controller
 
             $barang->update([
                 'nama_barang' => $request->nama_barang,
-                'gambar_barang' => $image->hashName(),
+                'gambar_barang' => $gambar_barang->hashName(),
                 'qty' => $request->qty,
                 'harga' => $request->harga,
                 'barcode' => $request->barcode,

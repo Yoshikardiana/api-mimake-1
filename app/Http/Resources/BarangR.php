@@ -19,11 +19,9 @@ class BarangR extends JsonResource
     public function toArray($request)
     {
         return [
-            'nama_barang' => $this->nama_barang,
-            'gambar_barang' => $this->gambar_barang,
-            'qty'    => $this->qty,
-            'harga' => $this->harga,
-            'barcode' => $this->barcode
+            'success' => $this->status,
+            'message' => $this->message,
+            'data'    => $this->resource
         ];
     }
 }

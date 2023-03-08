@@ -12,7 +12,7 @@ class TransaksiC extends Controller
 {
     public function index()
     {
-        $transaksi = TransaksiM::latest()->paginate(5);
+        $transaksi = TransaksiM::all();
         return new TransaksiR(true, 'List data transaksi', $transaksi);
     }
 
