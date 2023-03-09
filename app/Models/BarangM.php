@@ -12,7 +12,7 @@ class BarangM extends Model
     protected $table = 'barang';
     protected $fillable = [
         'nama_barang',
-        'gambar_barang',
+        '_barang',
         'qty',
         'harga',
         'barcode'
